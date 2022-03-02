@@ -1,3 +1,4 @@
+from aiohttp import request
 from rest_framework import status
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework.views import APIView
@@ -8,6 +9,8 @@ from rest_framework.response import Response
 from .auth_manager import AuthRequestManager
 from .serializers import UserSerializer
 from .models import User
+
+from django.http import HttpResponse
 
 from rest_framework_simplejwt.backends import TokenBackend
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -83,4 +86,7 @@ class Auth(APIView):
             return Response(status=status.HTTP_205_RESET_CONTENT)
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+def page(request):
+    return HttpResponse('For user registration needed fileds are email,username,mobile_no at /auth/register/')
 

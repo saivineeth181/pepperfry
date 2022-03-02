@@ -8,30 +8,24 @@ class UserManager(BaseUserManager):
     # creating user
     # this function will also called when we create super user
 
-    def create_user(self, email,username, mobile_no, gender, year, password=None):
+    def create_user(self, email,username, mobile_no, password=None):
         if not email:
             raise ValueError("email is required")
         if not mobile_no:
             raise ValueError("mobile number is required")
         if not username:
             raise ValueError("name is required")
-        if not gender:
-            raise ValueError("gender is required")
-        if not year:
-            raise ValueError("year is required")
         user = self.model(
             email=self.normalize_email(email[0]),
             username = username[0],
             mobile_no = int(mobile_no[0]),
-            year = year[0],
-            gender = gender[0]
         )
         user.set_password(password[0])
         user.save(using=self._db)
         return user
 
     #creating super user
-    def create_superuser(self, email, username, mobile_no, gender, year, password=None):
+    def create_superuser(self, email, username, mobile_no, password=None):
 
         if not email:
             raise ValueError("email is required")
@@ -39,16 +33,10 @@ class UserManager(BaseUserManager):
             raise ValueError("mobile number is required")
         if not username:
             raise ValueError("name is required")
-        if not gender:
-            raise ValueError("gender is required")
-        if not year:
-            raise ValueError("year is required")
         user = self.model(
             email=self.normalize_email(email),
             username = username,
             mobile_no = int(mobile_no),
-            year = year,
-            gender = gender
         )
         user.set_password(password)
         user.is_superuser = True
@@ -64,7 +52,7 @@ class User(AbstractBaseUser):
     username = models.CharField(max_length=50)
     mobile_no = models.BigIntegerField()
     gender = models.CharField(max_length=10) 
-    year = models.DateField(blank=False)
+    year = models.DateField(blank=True,null=True )
     about = models.TextField()
     profile_pic = models.ImageField()
     address = models.TextField()
@@ -78,7 +66,7 @@ class User(AbstractBaseUser):
 
     #login and required field=
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['mobile_no', 'username', 'gender', 'year']
+    REQUIRED_FIELDS = ['mobile_no', 'username']
     objects = UserManager()
 
     # speical functions
