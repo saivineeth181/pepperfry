@@ -8,7 +8,7 @@ class UserManager(BaseUserManager):
     # creating user
     # this function will also called when we create super user
 
-    def create_user(self, email,username, mobile_no, password=None):
+    def create_user(self, email,username, mobile_no, password=None,*args,**kwargs):
         if not email:
             raise ValueError("email is required")
         if not mobile_no:

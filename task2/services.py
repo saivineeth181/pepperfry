@@ -40,6 +40,9 @@ def delete_cat(db:Session, cat_id: int):
     db.query(Categories).filter(Categories.id == cat_id).delete()
     db.commit()
 
+def get_cat_id(db: Session,cat_id:int):
+    return db.query(Products).filter(Products.category_id == cat_id).all()
+
 #Sub-categories
 def get_subcat(db: Session):
     return db.query(SubCat).all()
@@ -65,6 +68,9 @@ def update_subcat(db:Session, subcat_id: int, subcat: SubsategoriesCreate):
 def delete_subcat(db:Session, subcat_id:int):
     db.query(SubCat).filter(SubCat.id == subcat_id).delete()
     db.commit()
+
+def get_subcat_id(db: Session,subcat_id:int):
+    return db.query(Products).filter(Products.subcategory_id == subcat_id).all()
 
 #Products
 def get_product(db: Session):
