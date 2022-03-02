@@ -44,7 +44,6 @@ class WebScraper(object):
             htmls = await asyncio.gather(*tasks)
             self.all_data.extend(htmls)
 
-            # Storing the raw HTML data.
             for html in htmls:
                 if html is not None:
                     html = html[0]
