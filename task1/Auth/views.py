@@ -87,5 +87,5 @@ class Auth(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 def page(request):
-    return HttpResponse('For user registration needed fileds are email,username,mobile_no at /auth/register/')
+    return HttpResponse('For user registration needed fields are email,username,mobile_no at /auth/register/')
 
